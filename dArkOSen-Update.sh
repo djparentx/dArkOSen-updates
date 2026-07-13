@@ -1,7 +1,7 @@
 #!/bin/bash
 
 clear
-UPDATE_DATE="xxxx2026"
+UPDATE_DATE="07042026"
 LOG_FILE="/home/ark/dArkOSen-update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.dArkOSen-update$UPDATE_DATE"
 
@@ -49,29 +49,6 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07042026" ]; then
 	else
 	  printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." | tee -a "$LOG_FILE"
 	  sudo rm -fv /dev/shm/dArkOSen-update07042026.z* | tee -a "$LOG_FILE"
-	  sleep 3
-	  echo $c_brightness > /sys/class/backlight/backlight/brightness
-	  exit 1
-	fi
-fi
-
-if [ ! -f "/home/ark/.config/.dArkOSen-update$UPDATE_DATE" ]; then
-
-	sudo rm -rf /dev/shm/*
-	sudo wget -t 3 -T 60 --no-check-certificate "$LOCATION"/$UPDATE_DATE/dArkOSen-update$UPDATE_DATE.zip -O /dev/shm/dArkOSen-update$UPDATE_DATE.zip -a "$LOG_FILE" || sudo rm -f /dev/shm/dArkOSen-update$UPDATE_DATE.zip | tee -a "$LOG_FILE"
-
-	if [ -f "/dev/shm/dArkOSen-update$UPDATE_DATE.zip" ]; then
-	  if [[ -f "/boot/rk3326-r36h-linux.dtb" ]]; then
-        sudo unzip -X -o /dev/shm/dArkOSen-update$UPDATE_DATE.zip -d / | tee -a "$LOG_FILE"
-      else
-        sudo unzip -X -o /dev/shm/dArkOSen-update$UPDATE_DATE.zip -x boot/BMPs/logo.sunrise.bmp -d / | tee -a "$LOG_FILE"
-      fi
-	  chmod -r +x '/opt/system/Advanced/Switch to SD2 for Roms.sh'
-	  chmod +x '/usr/local/bin/Switch to SD2 for Roms.sh'
-	  chmod +x '/lib/systemd/system-sleep/volume-resume-fix'
-	else
-	  printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." | tee -a "$LOG_FILE"
-	  sudo rm -fv /dev/shm/dArkOSen-update$UPDATE_DATE.z* | tee -a "$LOG_FILE"
 	  sleep 3
 	  echo $c_brightness > /sys/class/backlight/backlight/brightness
 	  exit 1
