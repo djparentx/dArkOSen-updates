@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 clear
-UPDATE_DATE="07202026"
+UPDATE_DATE="07272026"
 LOG_FILE="/home/ark/dArkOSen-update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.dArkOSen-update$UPDATE_DATE"
 
@@ -40,6 +40,7 @@ echo 255 > /sys/class/backlight/backlight/brightness
 touch $LOG_FILE
 tail -f $LOG_FILE >> /dev/tty1 &
 
+# 07042026
 if [ ! -f "/home/ark/.config/.dArkOSen-update07042026" ]; then
 	printf "\nInstalling update 07042026\n" >> "$LOG_FILE" 2>&1
 	sleep 2
@@ -61,19 +62,17 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07042026" ]; then
 	fi
 fi
 
+# 07202026
 if [ ! -f "/home/ark/.config/.dArkOSen-update07202026" ]; then
 	printf "\nInstalling update 07202026\n" >> "$LOG_FILE" 2>&1
 	sleep 2
 	rm -rf /dev/shm/*
 	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/07202026/dArkOSen-update07202026.zip -O /dev/shm/dArkOSen-update07202026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update07202026.zip | tee -a "$LOG_FILE"
-
 	if [ -f "/dev/shm/dArkOSen-update07202026.zip" ]; then
 		# remove old scripts
-		rm -f /opt/system/Wi-Fi\ Manager*.sh
-		rm -f /opt/system/BT\ Manager*.sh
+		rm -f /opt/system/Wi-Fi\ Manager*.sh /opt/system/BT\ Manager*.sh
 		# backup old BMPs and JPGs folders
 		cp -rf /boot/BMPs /boot/BMPs.old
-		rm -rf /boot/BMPs
 		cp -rf /roms/launchimages/JPGs /roms/launchimages/JPGs.old
 		rm -rf /roms/launchimages/JPGs
 		rm -f /boot/low_battery2.bmp /boot/low_battery3.bmp /boot/low_battery4.bmp
@@ -108,9 +107,48 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07202026" ]; then
 		printf "\nUpdate successful" >> "$LOG_FILE" 2>&1
 		# rebuilt uboot for all screen sizes
 		bash /tmp/flash_uboot.sh
+		sleep 1
+		msgbox "A reboot is required, please run Update-dArkOSen again to finish updates.  System will now restart after you hit the A button to continue.  If the system doesn't restart after pressing A, just restart the system manually."		
+		echo $c_brightness > /sys/class/backlight/backlight/brightness
+		reboot
 	else
 		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
 		rm -fv /dev/shm/dArkOSen-update07202026.z* | tee -a "$LOG_FILE"
+		sleep 3
+		echo $c_brightness > /sys/class/backlight/backlight/brightness
+		exit 1
+	fi
+fi
+
+if [ ! -f "/home/ark/.config/.dArkOSen-update07272026" ]; then
+	printf "\nInstalling update 07272026\n" >> "$LOG_FILE" 2>&1
+	sleep 2
+	rm -rf /dev/shm/*
+	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/07272026/dArkOSen-update07272026.zip -O /dev/shm/dArkOSen-update07272026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update07272026.zip | tee -a "$LOG_FILE"
+	if [ -f "/dev/shm/dArkOSen-update07272026.zip" ]; then
+		# kill ogage
+		systemctl stop ogage.service
+		#cleanup
+		rm -f /opt/system/Advanced/Restore\ R36H\ hotkeys.sh /opt/system/BT\ Manager*.sh /boot/dtb/r36s/R36S-Plus-V20\ 2025-03-18\ 2551/rg351mp-kernel.dtb
+		# unzip update
+		unzip -X -o /dev/shm/dArkOSen-update07272026.zip -d / | tee -a "$LOG_FILE"
+		# install packages
+		printf "Installing required packages..." >> "$LOG_FILE" 2>&1
+		apt-get update
+		dpkg -i /tmp/packages/*.deb
+		dpkg --configure -a
+		ldconfig
+		printf "Package installation complete." >> "$LOG_FILE" 2>&1
+		# ownership and permissions
+		chmod -R +x /usr/local/bin /opt/system /opt/dingux
+		chown -R ark:ark /opt/dingux
+		systemctl start ogage.service
+		systemctl enable gamma-persist.service
+		touch "/home/ark/.config/.dArkOSen-update07272026"
+		printf "\nUpdate successful" >> "$LOG_FILE" 2>&1
+	else
+		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
+		rm -fv /dev/shm/dArkOSen-update07272026.z* | tee -a "$LOG_FILE"
 		sleep 3
 		echo $c_brightness > /sys/class/backlight/backlight/brightness
 		exit 1
