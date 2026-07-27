@@ -5,6 +5,8 @@ Use 'Update-dArkOSen' in your System folder to update.
 
 Download the latest fully updated image here: [dArkOSen Releases](https://github.com/djparentx/dArkOSen-R36S/releases)
 
+---
+
 # 07272026 Change Log
 ## Boot & Startup
 
