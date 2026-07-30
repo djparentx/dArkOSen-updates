@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 clear
-UPDATE_DATE="07272026"
+UPDATE_DATE="07312026"
 LOG_FILE="/home/ark/dArkOSen-update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.dArkOSen-update$UPDATE_DATE"
 
@@ -83,26 +83,8 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07202026" ]; then
 		bash /tmp/fix_fstab.sh
 		# run dtb battery patch
 		bash /tmp/patch_dtb_battery.sh
-		# promax setup
-		if [[ -f "/boot/arkos4clone-uboot.dtb" ]]; then
-			cp -rf "/boot/dtb/r36s/HL-R45H-V20 2025-11-18/". /boot/
-			rm -f "/boot/arkos4clone-uboot.dtb"
-		fi
-		# set permissions
-		chmod +x /etc/NetworkManager/dispatcher.d/99-disable-ipv6.sh
-		chmod +x "/opt/system/Advanced/Switch to SD2 for Roms.sh"
-		chmod +x "/usr/local/bin/Switch to SD2 for Roms.sh"
-		chmod +x /lib/systemd/system-sleep/volume-resume-fix
-		chmod +x /usr/local/bin/recovery-runner.sh
-		chmod -R +x /opt/system/
-		chown root:root /
-		depmod -a
-		# enable recovery service
-		systemctl enable recovery-check.service
-		systemctl enable boot_volume.service
-		systemctl restart NetworkManager
-		# remove old patchers, old updater
-		rm -f "/opt/system/Tools/R36H Pro Max Theme Patcher.sh" "/opt/system/Tools/R36S Theme Patcher.sh" "/opt/system/System/Update-djparentx.sh"
+		# update script
+		bash /tmp/07202026.sh
 		touch "/home/ark/.config/.dArkOSen-update07202026"
 		printf "\nUpdate successful" >> "$LOG_FILE" 2>&1
 		# rebuilt uboot for all screen sizes
@@ -132,18 +114,9 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07272026" ]; then
 		rm -f /opt/system/Advanced/Restore\ R36H\ hotkeys.sh /opt/system/BT\ Manager*.sh /boot/dtb/r36s/R36S-Plus-V20\ 2025-03-18\ 2551/rg351mp-kernel.dtb
 		# unzip update
 		unzip -X -o /dev/shm/dArkOSen-update07272026.zip -d / | tee -a "$LOG_FILE"
-		# install packages
-		printf "Installing required packages..." >> "$LOG_FILE" 2>&1
-		apt-get update
-		dpkg -i /tmp/packages/*.deb
-		dpkg --configure -a
-		ldconfig
-		printf "Package installation complete." >> "$LOG_FILE" 2>&1
-		# ownership and permissions
-		chmod -R +x /usr/local/bin /opt/system /opt/dingux
-		chown -R ark:ark /opt/dingux
-		systemctl start ogage.service
-		systemctl enable gamma-persist.service
+		sleep 1
+		# update script
+		bash /tmp/07272026.sh
 		touch "/home/ark/.config/.dArkOSen-update07272026"
 		printf "\nUpdate successful" >> "$LOG_FILE" 2>&1
 	else
@@ -153,7 +126,37 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07272026" ]; then
 		echo $c_brightness > /sys/class/backlight/backlight/brightness
 		exit 1
 	fi
+fi
 
+if [ ! -f "/home/ark/.config/.dArkOSen-update07312026" ]; then
+	# update dArkOS first
+	if [[ ! -f "/home/ark/.config/.update07262026" ]]; then
+		msgbox "The system will update dArkOS first, run Update-dArkOSen again after reboot to complete all updates."
+		bash /opt/system/System/Update.sh
+		exit 1
+	fi
+	printf "\nInstalling update 07312026\n" >> "$LOG_FILE" 2>&1
+	sleep 2
+	rm -rf /dev/shm/*
+	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/07312026/dArkOSen-update07312026.zip -O /dev/shm/dArkOSen-update07312026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update07312026.zip | tee -a "$LOG_FILE"
+	if [ -f "/dev/shm/dArkOSen-update07312026.zip" ]; then
+		# kill ogage
+		systemctl stop ogage.service
+		# unzip update
+		unzip -X -o /dev/shm/dArkOSen-update07312026.zip -d / | tee -a "$LOG_FILE"	
+		sleep 1
+		# run update script
+		bash /tmp/07312026.sh
+		touch "/home/ark/.config/.dArkOSen-update07312026"
+		printf "\nUpdate successful" >> "$LOG_FILE" 2>&1		
+	else
+		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
+		rm -fv /dev/shm/dArkOSen-update07312026.z* | tee -a "$LOG_FILE"
+		sleep 3
+		echo $c_brightness > /sys/class/backlight/backlight/brightness
+		exit 1
+	fi	
+	
 	rm -v -- "$0" | tee -a "$LOG_FILE"
 	printf "\033c" >> /dev/tty1
 	msgbox "Updates have been completed.  System will now restart after you hit the A button to continue.  If the system doesn't restart after pressing A, just restart the system manually."
