@@ -86,6 +86,7 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ## System Utilities
 
+- repaired FFMPEG and Libvulkan1 installations
 - added 'Dave's Retro Shaders v1.7' back, got missed in last update somehow
 - added 'Adjust Gamma' to the System folder (thanks to u/southozfps for the reference materials)
 - added back full screen Files viewer for 1024x768 screens (dropped by accident in the first release)
@@ -116,7 +117,7 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ## Emulation & Gaming
 
-- installed mame-tools, ffmpeg, and libvulkan1 to enable game and video conversion on the console
+- installed mame-tools to enable game and video conversion on the console
 - fixed Retrorun and Retrorun32 no controls and wrong display for R36H and R45H boards
 - fixed Retrorun32 had no audio
 - fixed PPSSPP-2021 not saving games
