@@ -7,6 +7,77 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ---
 
+# 07312026 Change Log
+## System Updates
+
+- retore EmulationStation after dArkOS update
+- restore dArkOSen system hotkeys after dArkOS update
+- removed dArkOS update path
+- renamed 'Update-dArkOSen' to 'Update'
+- changed hostname to 'dArkOSen-r36'
+- fixed fstab device path error
+
+## System Utilities
+
+- added 'BatteryPlus Mode Switcher' to the Advanced folder [BatteryPlus](https://github.com/Mikhailzrick/knubat.components)
+- updated R36 Backup and Migration Assistant to apply Retroarch hotkeys
+- added 'Restore dArkOSen' to the Advanced folder
+	- restores dArkOSen's kernel and ogage (overclock and hotkeys) and @Jason3x's emulationstation
+
+## Emulation & Gaming
+
+- added 'Dave's Retro Shaders 2.0' - major performance updates to the CRT and LCD shaders!
+- added Advanced Drastic NDS emulator (lifted from dArkOSRE, thanks go to southoz)
+- applied dArkOSRE style Retroarch hotkeys (Reset Retroarch Settings in Advance folder to apply)
+- enable single press of Fn button to open Retroarch menu (systemd service)
+
+## Hotkeys
+
+
+### Retroarch Hotkeys
+
+| FUNCTION | HOTKEY COMBO |
+| :--- | :--- |
+| Retroarch Menu | Function or Select for 2 seconds |
+| Quit Retroarch | Start + Select |
+| Pause | Select + R3 |
+| Reset Core | Select + R2 |
+| Save State | Select + B (Bottom) |
+| Load State | Select + A (Right) |
+| Prev State | Select + Y (Left) |
+| Next State | Select + X (Top) |
+| Fast Forward | Select + D-Pad Right |
+| Fast Forward Hold | Select + D-Pad Down |
+| Rewind | Select + D-Pad Left |
+| Frame Advance | Select + D-Pad Up |
+| Screenshot | Select + L3 |
+
+### System Hotkeys
+
+- Fn or R3 (right joystick press) both act as the hotkey
+- gamma hotkeys switched to D-Pad left and right
+
+| FUNCTION | HOTKEY COMBO |
+| :--- | :--- |
+| Brightness Up | Hotkey + D-Pad Up |
+| Brightness Down | Hotkey + D-Pad Down |
+| Gamma Up | Hotkey + D-Pad Right |
+| Gamma Down | Hotkey + D-Pad Left |
+| Volume Up | Hotkey + R1 |
+| Volume Down | Hotkey + L1 |
+| Safe Shutdown | Hotkey + Power |
+| Mute | Hotkey + L3 |
+| Battery Level | Select + R3 |
+| Toggle Wifi | Select + L1 |
+| Toogle Bluetooth | Select + R1 |
+
+## Performance & Thermal Management
+
+- fixed boot race condition in CPU Manager/ZRAM service
+
+
+---
+
 # 07272026 Change Log
 ## Boot & Startup
 
