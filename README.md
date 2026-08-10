@@ -1,7 +1,7 @@
 # The official update channel for dArkOSen.
 
 
-Use 'Update-dArkOSen' in your System folder to update.
+Use 'Update' in your System folder to update.
 
 Download the latest fully updated image here: [dArkOSen Releases](https://github.com/djparentx/dArkOSen-R36S/releases)
 
