@@ -1,10 +1,13 @@
 # Change Log
 # ==========
-- removed all clone and soysauce dtbs from the dtb selector
+- created the [dArkOSen Wiki](https://github.com/djparentx/dArkOSen-R36S/wiki) 
+- marked all clone and soysauce dtbs as UNSUPPORTED in PC and macOS DTB SELECTORS to remove ambiguity
 - fixed Retrorun Saturn for non-R36S devices
 - fixed 'finish.sh' - no more worry of SD corruption from using the 'Safe Shutdown' hotkey
 - fixed 'recovery-check.service' - was loading before /boot was mounted
-- fixed missing Vulkan support — registered missing ICD file
+- fixed conflicting Hotkeys in Mupen64Plus, see Wiki
+- fixed missing Vulkan support (libmali) 
+	— registered missing ICD file so Vulkan apps can use the Mali-G31 GPU instead of falling back to software rendering
 - added 'SD Card Scan and Repair' to the System folder
 	- runs fsck.fat or btrfs scrub to check for and automatically fix errors
 	- unmounts partitions first, reboot may be required
@@ -13,7 +16,7 @@
 	- rootfs is limited to simple repairs, if a PC scan is needed it gives instructions
 - added 'Update Retroarch Cheats' to the Advanced folder
 	- installs cheats on first run
-	- cheats are pre-installed in the 08xx2026.img
+	- cheats are pre-installed in the 08152026.img
 - added 'R36 SD MP4 Video Converter' to the Tools folder
 	- converts any selected video in /movies to 640x480, 24fps, 196k audio
 	- choice of padding or cropping non-4:3 AR videos
@@ -38,4 +41,3 @@
 # =====
 - fix Duckstation
 - update EmulationStation
-- create dArkOSen Wiki
