@@ -9,6 +9,70 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ---
 
+# 08152026 Change Log
+## Documentation & Support
+
+* created the [dArkOSen Wiki](https://github.com/djparentx/dArkOSen-R36S/wiki)
+
+## Boot & System
+
+* fixed 'finish.sh' - no more worry of SD corruption from using the 'Safe Shutdown' hotkey
+* fixed 'recovery-check.service' - was loading before /boot was mounted
+* added 'SD Card Scan and Repair' to the System folder
+
+  * runs fsck.fat or btrfs scrub to check for and automatically fix errors
+  * unmounts partitions first, reboot may be required
+  * detailed logs are created after each scan at /home/ark/sd_scan.log
+  * limited to repairing corrupt filesystems, cannot fix a dying card
+  * rootfs is limited to simple repairs, if a PC scan is needed it gives instructions
+
+## Emulation
+
+* fixed Retrorun Saturn for non-R36S devices
+* fixed conflicting Hotkeys in Mupen64Plus, see Wiki
+* added 'Update Retroarch Cheats' to the Advanced folder
+
+  * the most recent Cheats update is included as part of this update
+* added 'PSX - CHD to ISO' to the Advanced folder
+* added 'Drastic Bilinear Filter Mode' to the Advanced folder
+
+  * use the script to turn bilinear filtering on or off
+  * changes settings for Drastic and Advanced Drastic at the same time
+
+## Vulkan & Development Tools
+
+* fixed missing Vulkan support (libmali)
+  — registered missing ICD file so Vulkan apps can use the Mali-G31 GPU instead of falling back to software rendering
+* installed strace, vulkan-tools, usbutils, gdb
+
+## Video Tools
+
+* added 'R36 SD MP4 Video Converter' to the Tools folder
+
+  * converts any selected video in /movies to 640x480, 24fps, 196k audio
+  * choice of padding or cropping non-4:3 AR videos
+  * takes around 1 minute per minute of video to convert
+  * outputs new video with appended filename to /movies folder - does not delete original
+
+## DTB & Hardware
+
+* marked all clone and soysauce dtbs as UNSUPPORTED in PC and macOS DTB SELECTORS to remove ambiguity
+* fixed R36S-Plus-V20 2025-03-18 2551 rg351mp-uboot.dtb to properly display the boot logo
+* added more DTBs to the selector:
+
+  * HL-R36H-V21 2024-11-18
+  * R36S-V21 2024-12-18 2529
+  * R36S-V21 2024-12-18 2547
+* added 'R36 Joystick Deadzone Adjuster' to the System folder
+* updated all dtbs with an improved deadzone value of 384 ADC
+* updated 'dArkOSen_dtb_patcher_v1.2' to include adc-deadzone values
+
+## Wi-Fi
+
+* updated to 'Wi-Fi Manager 4.3.7' see repo for changes
+
+---
+
 # 07312026 Change Log
 ## System Updates
 
