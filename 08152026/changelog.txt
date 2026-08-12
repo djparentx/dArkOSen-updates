@@ -35,6 +35,7 @@
 - added 'R36 Joystick Deadzone Adjuster' to the System folder
 - updated all dtbs with an improved deadzone value of 384 ADC
 - updated 'dArkOSen_dtb_patcher_v1.2' to include adc-deadzone values
+- updated to 'Wi-Fi Manager 4.3.7' see repo for changes
 
 
 # TO DO
