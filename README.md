@@ -10,6 +10,9 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 ---
 
 # 08152026 Change Log
+
+The last update enabled the Safe Shutdown shortcut in the hotkeys. Many of you may have found out, as I did, that it was anything but safe. It had a tendency to corrupt SD2 due to how it was unmounting before shutdown. I have repaired the Safe Shutdown script and also added the new SD Scan and Repair utility for those of you who may not have access to a PC to repair your filesystems. It cannot repair a damaged card, but if you find games were missing or the system is otherwise acting weird after using Safe Shutdown running an SD scan can fix most filesystem issues.
+
 ## Documentation & Support
 
 * created the [dArkOSen Wiki](https://github.com/djparentx/dArkOSen-R36S/wiki)
@@ -18,6 +21,7 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 * fixed 'finish.sh' - no more worry of SD corruption from using the 'Safe Shutdown' hotkey
 * fixed 'recovery-check.service' - was loading before /boot was mounted
+* updated SYSTEMS Manager to allow moving Tools and Ports back to SD1
 * added 'SD Card Scan and Repair' to the System folder
 
   * runs fsck.fat or btrfs scrub to check for and automatically fix errors
@@ -34,6 +38,7 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
   * the most recent Cheats update is included as part of this update
 * added 'PSX - CHD to ISO' to the Advanced folder
+* changed menu hotkey in Drastic/Advanced Drastic to L3
 * added 'Drastic Bilinear Filter Mode' to the Advanced folder
 
   * use the script to turn bilinear filtering on or off
@@ -140,7 +145,6 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 ## Performance & Thermal Management
 
 - fixed boot race condition in CPU Manager/ZRAM service
-
 
 ---
 
