@@ -48,7 +48,7 @@ The last update enabled the Safe Shutdown shortcut in the hotkeys. Many of you m
 
 * fixed missing Vulkan support (libmali)
   — registered missing ICD file so Vulkan apps can use the Mali-G31 GPU instead of falling back to software rendering
-* installed strace, vulkan-tools, usbutils, gdb
+* installed strace, ltrace, vulkan-tools, usbutils, gdb
 
 ## Video Tools
 
