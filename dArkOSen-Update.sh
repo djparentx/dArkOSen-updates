@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 clear
-UPDATE_DATE="07312026"
+UPDATE_DATE="08152026"
 LOG_FILE="/home/ark/dArkOSen-update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.dArkOSen-update$UPDATE_DATE"
 
@@ -39,28 +39,6 @@ chmod 666 /dev/tty1
 echo 255 > /sys/class/backlight/backlight/brightness
 touch $LOG_FILE
 tail -f $LOG_FILE >> /dev/tty1 &
-
-# 07042026
-if [ ! -f "/home/ark/.config/.dArkOSen-update07042026" ]; then
-	printf "\nInstalling update 07042026\n" >> "$LOG_FILE" 2>&1
-	sleep 2
-	rm -rf /dev/shm/*
-	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/07042026/dArkOSen-update07042026.zip -O /dev/shm/dArkOSen-update07042026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update07042026.zip | tee -a "$LOG_FILE"
-	if [ -f "/dev/shm/dArkOSen-update07042026.zip" ]; then
-        unzip -X -o /dev/shm/dArkOSen-update07042026.zip -d / | tee -a "$LOG_FILE"
-		chmod -R +x /opt/system
-		rm -f "/opt/system/System/RetroArch One-Click Backup.sh"
-		rm -f "/opt/system/System/djparentx-Update.sh"
-		touch "/home/ark/.config/.dArkOSen-update07042026"
-		printf "\nUpdate successful" >> "$LOG_FILE" 2>&1
-	else
-		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
-		rm -fv /dev/shm/dArkOSen-update07042026.z* | tee -a "$LOG_FILE"
-		sleep 3
-		echo $c_brightness > /sys/class/backlight/backlight/brightness
-		exit 1
-	fi
-fi
 
 # 07202026
 if [ ! -f "/home/ark/.config/.dArkOSen-update07202026" ]; then
@@ -102,6 +80,7 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07202026" ]; then
 	fi
 fi
 
+# 07272026
 if [ ! -f "/home/ark/.config/.dArkOSen-update07272026" ]; then
 	printf "\nInstalling update 07272026\n" >> "$LOG_FILE" 2>&1
 	sleep 2
@@ -128,6 +107,7 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07272026" ]; then
 	fi
 fi
 
+# 07312026
 if [ ! -f "/home/ark/.config/.dArkOSen-update07312026" ]; then
 	# update dArkOS first
 	if [[ ! -f "/home/ark/.config/.update07262026" ]]; then
@@ -152,6 +132,28 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update07312026" ]; then
 	else
 		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
 		rm -fv /dev/shm/dArkOSen-update07312026.z* | tee -a "$LOG_FILE"
+		sleep 3
+		echo $c_brightness > /sys/class/backlight/backlight/brightness
+		exit 1
+	fi	
+fi	
+	
+if [ ! -f "/home/ark/.config/.dArkOSen-update08152026" ]; then
+	printf "\nInstalling update 08152026\n" >> "$LOG_FILE" 2>&1
+	sleep 2
+	rm -rf /dev/shm/*
+	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/08152026/dArkOSen-update08152026.zip -O /dev/shm/dArkOSen-update08152026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update08152026.zip | tee -a "$LOG_FILE"
+	if [ -f "/dev/shm/dArkOSen-update08152026.zip" ]; then	
+		# unzip
+		unzip -X -o /dev/shm/dArkOSen-update08152026.zip -d / | tee -a "$LOG_FILE"
+		sleep 1
+		# run update script
+		bash /tmp/08152026.sh
+		touch "/home/ark/.config/.dArkOSen-update08152026"
+		printf "\nUpdate successful" >> "$LOG_FILE" 2>&1
+	else
+		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
+		rm -fv /dev/shm/dArkOSen-update08152026.z* | tee -a "$LOG_FILE"
 		sleep 3
 		echo $c_brightness > /sys/class/backlight/backlight/brightness
 		exit 1
