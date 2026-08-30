@@ -9,6 +9,118 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ---
 
+# 08312026 Change Log
+
+This update brings a ton of new improvements and visuals. All of the AI placeholder slop has been replaced with real artwork and my favorite theme, RetroOz, has been remixed into RetroDark. Many of the scripts that were accumulating in the System folder have now been integrated into the Emulation Station menu.
+
+## Boot & Performance
+
+* new boot logo,loading screen and theme, RetroDark! AI placeholders have been moved to /BMPs.old and /JPGs.old
+* faster boot time, fixed a hanging logo service
+* restored libOpenCL.so.1 symlink after dArkOS update, needed for ffmpeg
+
+<p align="center">
+  <img width="320" height="240" alt="dArkOSen-boot" src="https://github.com/user-attachments/assets/891604ef-3682-4e07-b70f-9be9964292df" />
+  <img width="320" height="240" alt="system-view-640x480" src="https://github.com/user-attachments/assets/8c556c6b-eb05-4f01-906e-e9a95199e6ec" />
+  <img width="320" height="240" alt="game-view 640x480" src="https://github.com/user-attachments/assets/923baf91-7581-4aa9-b3a8-b883bcdcdb98" />
+ <img width="320" height="240" alt="main-menu" src="https://github.com/user-attachments/assets/4177b499-09ad-417e-b56d-b85c08551c24" />
+<img width="320" height="240" alt="display-settings" src="https://github.com/user-attachments/assets/f75dfbf7-f7d7-463b-8ea9-101705829b6c" />
+<img width="320" height="240" alt="UI-settings" src="https://github.com/user-attachments/assets/6d704934-423f-4bda-95c7-b06c51956976" />
+<img width="320" height="240" alt="network-settings" src="https://github.com/user-attachments/assets/36765a36-e257-4b73-8230-dd6c9d881014" />
+<img width="320" height="240" alt="sound-settings" src="https://github.com/user-attachments/assets/687d5f24-1136-4a17-9b3c-27b6120a10e7" />
+<img width="320" height="240" alt="performance-settings" src="https://github.com/user-attachments/assets/defa65ba-c4e8-4e1e-b9b3-b48c0047de3d" />
+<img width="320" height="240" alt="advanced-settings1" src="https://github.com/user-attachments/assets/1356b3a7-a15f-43ec-923d-9a7c023ca8ee" />
+<img width="320" height="240" alt="advanced-settings2" src="https://github.com/user-attachments/assets/23a2b122-a818-42b4-989f-182b4a2aead6" />
+</p>
+
+
+## Emulation & RetroArch
+
+* fixed 'PSX - CHD to ISO.sh' not running
+* fixed Retroarch pointing to /roms2/bios, /roms/bios is the default now
+* added hotkey to Rice standalone emulator --> SELECT + X = reset emulator
+* added 'Retroarch Manager' to the Advanced folder
+  - easily change game saves location
+  - moves the game saves too
+  - dArkOSen default is `~/.config/retroarch/saves`
+  - can choose game content folders,
+  `/roms/<system>` or `/roms2/<system>` according to es_systems.cfg
+
+## DTB & Hardware
+
+* R36S-V22 2024-12-18 2535 added to the DTB SELECTOR
+* HL-R46H-V22 2026-3-12 added to the DTB SELECTOR
+* R36S-V21 2024-12-18 2551 added to the DTB SELECTOR
+
+## Wi-Fi & Network Settings
+
+* integrated Wi-Fi Manager completely into the OS
+
+  * everything is in top level of NETWORK SETTINGS
+  * if you have SD2 enabled toggle REMOTE SERVICES to activate 'roms2' in Samba sharing
+  * toggle WIFI MONITOR SERVICE to turn off the wifi monitoring service
+
+    * the service attempts to reconnect any unexpected broken network connections
+    * if it cannot reconnect within ten minutes it turns off wifi to save power
+    * parameters such as retry interval and timeout can be edited at /usr/local/bin/wifi_monitor.sh
+    * it uses minimal resources but can be turned off if behaviour is undesirable
+
+## EmulationStation
+
+* updated Emulation Station (thanks to @Jason3x)
+
+  * click on 'Distro Version' in the main menu to update dArkOSen (Update.sh moved to /usr/local/bin)
+  * added Gamma slider to Display Settings
+  * added Boot Volume level to Sound Settings
+  * added Joystick Deadzone to the Advanced Settings
+  * added Network Settings to the menu (with contributions from @Jason3x, @lcdyk0517)
+
+    * integrated Wi-Fi Manager
+    * menu link to Bluetooth Manager script (moved to /usr/local/bin)
+    * HOSTNAME can be edited by selecting it in the menu
+  * added Performance Settings to the menu (with contributions from @lcdyk0517)
+
+    * ported all functions from CPU Manager
+    * added temp and cores from A4C ES menu
+  * added Date & Time to the Advanced Settings
+
+    * time can be set manually
+    * network sync overrides manual setting
+  * added Root File Access toggle to the Advanced Settings
+  * added BatteryPlus Settings in Advanced Settings (@Jason3x)
+  * added Battery Icon to the UI Settings (@Jason3x)
+  * added Network Icon to the UI Settings (@Jason3x)
+  * scraping for games in Ports is fixed, now linked to 'PC Windows' category
+
+## System Folder Changes
+
+* removed 'BatteryPlus Mode Switcher' from the Advanced folder
+* removed 'R36 Boot Volume' from the System folder
+* removed 'R36 Joystick Deadzone Adjuster' from the System folder
+* removed 'CPU Manager' from the System folder
+* removed 'Adjust Gamma' from the System folder
+* removed 'Change LED to Red' from the System folder
+* removed 'Update' from the Systems folder
+* removed 'Wi-Fi Manager' from the Options folder
+* removed 'BT Manager' from the Options folder
+
+# dArkOS 08272026 Change Log
+
+## Emulation & Gaming
+
+* fixed many Daphne games not loading
+* fixed the ability to backup and restore settings from BaRT
+* fixed parallel_n64 core for retroarch32 (Thanks to Czapa86 for reporting the issue)
+* fixed nice priority settings not taking effect when launching emulators (Thanks to cino893 for reporting and resolving the issue)
+
+## System Updates
+
+* updated batteryplus (Thanks to Mikhailzrick)
+* updated retrorun and retrorun32
+* updated Debian Trixie OS version to 13.6
+
+---
+
 # 08152026 Change Log
 
 The last update enabled the Safe Shutdown shortcut in the hotkeys. Many of you may have found out, as I did, that it was anything but safe. It had a tendency to corrupt SD2 due to how it was unmounting before shutdown. I have repaired the Safe Shutdown script and also added the new SD Scan and Repair utility for those of you who may not have access to a PC to repair your filesystems. It cannot repair a damaged card, but if you find games were missing or the system is otherwise acting weird after using Safe Shutdown running an SD scan can fix most filesystem issues.
