@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 clear
-UPDATE_DATE="09152026"
+UPDATE_DATE="09162026"
 LOG_FILE="/home/ark/dArkOSen-update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.dArkOSen-update$UPDATE_DATE"
 
@@ -182,23 +182,23 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update08312026" ]; then
 	fi
 fi
 
-# 09152026
-if [ ! -f "/home/ark/.config/.dArkOSen-update09152026" ]; then
-	printf "\nInstalling update 09152026\n" >> "$LOG_FILE" 2>&1
+# 09162026
+if [ ! -f "/home/ark/.config/.dArkOSen-update09162026" ]; then
+	printf "\nInstalling update 09162026\n" >> "$LOG_FILE" 2>&1
 	sleep 2
 	rm -rf /dev/shm/*
-	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/09152026/dArkOSen-update09152026.zip -O /dev/shm/dArkOSen-update09152026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update09152026.zip | tee -a "$LOG_FILE"
-	if [ -f "/dev/shm/dArkOSen-update09152026.zip" ]; then	
+	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/09162026/dArkOSen-update09162026.zip -O /dev/shm/dArkOSen-update09162026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update09162026.zip | tee -a "$LOG_FILE"
+	if [ -f "/dev/shm/dArkOSen-update09162026.zip" ]; then	
 		# stop ogage
 		systemctl stop ogage.service
 		# unzip
-		unzip -X -o /dev/shm/dArkOSen-update09152026.zip -d / | tee -a "$LOG_FILE"
+		unzip -X -o /dev/shm/dArkOSen-update09162026.zip -d / | tee -a "$LOG_FILE"
 		sleep 1
 		# run update script
-		bash /tmp/09152026.sh
+		bash /tmp/09162026.sh
 	else
 		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
-		rm -fv /dev/shm/dArkOSen-update09152026.z* | tee -a "$LOG_FILE"
+		rm -fv /dev/shm/dArkOSen-update09162026.z* | tee -a "$LOG_FILE"
 		sleep 3
 		echo $c_brightness > /sys/class/backlight/backlight/brightness
 		exit 1
