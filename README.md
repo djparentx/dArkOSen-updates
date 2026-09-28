@@ -9,6 +9,60 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ---
 
+# 09162026 Change Log
+
+## Performance & Hardware
+
+* fixed CPU/GPU governor settings not sticking
+* added CPU Grade to Performance Settings
+* added RAM governor apply at boot
+* fixed GPU Max Freq in Performance Settings decreased when pressing right
+* fixed CPU and GPU opp tables in all dtbs
+* fixed BatteryPlus calibration
+* blacklist redundant 8192cu driver
+
+## Wi-Fi & OTG
+
+* fixed race condition in wifi/otg toggle
+* OTG has been confirmed working
+
+## Display & UI
+
+* fixed vertical battery icon displaying incorrectly
+* fixed video and title image positioning in RetroDark
+
+## Emulation
+
+* fixed permission error in RetroArch32 that was preventing saving settings
+* fixed PSP displaying wrong manufacturer in settings
+* updated Advanced Drastic (latest version from dArkOSRE beta)
+* updated Retro Shaders to 2.1 (added CRT bezels)
+
+## DTB & Device Support
+
+* fixed R36Plus not showing boot logo (reselect in the dtb selector to apply)
+* fixed R36H Pro Max missing GPU overclock (reselect in the dtb selector to apply)
+* added to the dtb selector:
+
+  * HL-R36H-V21 2024-11-18 (replaced)
+  * HL-R36H-ProMax-V20 2025-11-18
+  * HL-R45H-V22 2026-03-09
+  * R36S-V21 2024-12-18 2544
+  * R36S-V22 2024-12-18 2545
+  * R36S-V30 2025-18-11 2603
+
+## SaveSync
+
+* added SaveSync to Advanced Settings (see Wiki for instructions)
+
+  * hotkey shortcut L3 + A button to sync any time
+
+## EmulationStation
+
+* added 'Last 20 Played Games' to Game Collection Settings (thanks u/Jason_2x)
+
+---
+
 # 08312026 Change Log
 
 This update brings a ton of new improvements and visuals. All of the AI placeholder slop has been replaced with real artwork and my favorite theme, RetroOz, has been remixed into RetroDark. Many of the scripts that were accumulating in the System folder have now been integrated into the Emulation Station menu.
