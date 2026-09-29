@@ -9,6 +9,101 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ---
 
+# 09302026 Change Log
+
+## Emulation
+
+* fixed Advanced Drastic
+
+  * the project appears to be abandoned and is closed source
+  * there will be no further updates
+  * there will be no further support
+  * not compatible with rotated displays
+* fixed Duckstation!!!!! (NEEDS A BIOS TO RUN!)
+
+  * compatible with rotated displays
+* updated Kodi with rotate capable version
+
+  * updated Kodi to dArkOSen edition Omega 21.3
+  * fixed playlist bug where it always played the same first item on shuffle
+* updated PPSSPP with a version optimized for the rk3326
+* updated Retroarch64 and 32 with rotate capable versions
+* updated Retrorun64 and 32 with rotate capable versions
+* updated SDL2 with rotate capable version
+* updated Flycast with rotate capable version
+
+  * enabled hardware acceleration in Flycast
+  * changed Flycast entry in ES to "standalone-Flycast"
+* fixed BigPEmu (Atari Jaguar) controls
+* added .zip detection to Atari Jaguar in ES
+
+## Audio & Performance
+
+* changed audio volume to a log curve instead of linear
+
+  * much louder at 50% volume (equivalent to 70% previous)
+  * minimum and maxiumum values were not changed
+* fixed ZRAM not setting to 768M, added 1024M setting
+
+## Display & Rotation
+
+* the rotation tag is in `/home/ark/.config/.DEVICE`, add or remove the string "rotated"
+* updated 351Files with scaling for large screens, added keymapping
+
+## DTB & Device Support
+
+* updated R36S-V12 2023-08-18 Panel 4 in the dtb folder
+* added more models to the dtb folder:
+
+  * HL-R50S-V30 2025-12-18
+  * HL-R50H-V11 2026-03-31 2617
+  * HL-R40PRO-MAX-V12 2025-09-18
+
+## Boot & System
+
+* updated Debian Trixie OS to version 13.7
+* added 'Boot Splash Manager.sh' by u/Jason_2x to the System folder
+* updated RetroArch Manager, new feature 'Migrate from Arkos'
+* end of the road for Vulkan integration, the vendor blobs are lacking support
+* added SELECT MODEL.exe and SELECT MODEL_OSX.app to /boot
+* all boot logos/images copy from centralized folders to reduce redundant copies
+* installed KMSGrab
+* installed ImageMagick
+* added a Screenshot tool via KMSGrab
+
+  * type `screenshot` in a terminal to capture the current screen
+  * default save location is /roms/screenshots/screenshot.png
+  * does not overwrite previous screenshots
+  * use `<location>/<name>.png` as an arg - ex. `screenshot /roms/tools/pikachu.png`
+
+## Global Controls
+
+* replaced "Switch A/B in EmulationStation" with "Switch A/B Globally"
+
+  * toggles scripts, ES, RetroArch, Portmaster, Thememaster, Kodi, 351Files and File Manager
+  * choose 'US' for western button layout, 'JP' for traditional layout
+
+## SaveSync
+
+* fixed content folder sync bug in SaveSync
+* created missing savesync.crd file, needed to save credentials in Savesync
+
+## Storage & System Settings
+
+* added  "Storage Settings" to "Advanced Settings" in ES
+
+  * 'Switch to SD2 for Roms.sh' is now "Enable SD2" in the menu
+  * updated 'Switch to SD2 for Roms.sh' and 'Switch to Main SD for Roms.sh'; fully idempotent
+  * 'SYSTEMS Manager.sh' has been fully integrated as "Reassign Systems to SD1"
+  * 'SD Scan and Repair.sh' has been fully integrated as "Scan and Repair"
+
+## Security & Networking
+
+* SECURITY: fixed - connect wifi via execvp instead of shell to prevent SSID injection
+* updated ES translations
+
+---
+
 # 09162026 Change Log
 
 ## Performance & Hardware
