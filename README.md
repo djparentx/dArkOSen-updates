@@ -9,6 +9,116 @@ Download the latest fully updated image here: [dArkOSen Releases](https://github
 
 ---
 
+# 10152026
+
+## Ports & Gaming
+
+* dArkOSen exclusive! Halo: Combat Evolved ported to the R36S
+
+  * forked from https://github.com/kirklandsig/halo-ce-anbernic-rg35xx (credit to @kirklandsig)
+  * averages 25-32fps
+  * supports 16:9 and rotated screens!
+  * need original Xbox iso or /maps folder
+  * dArkOSen exclusive enhancements (quit from menu, save settings when backing out, blocked options that crash the game)
+* added Minecraft Pocket Edition [MCPELauncher] by u/ImpressiveStay6355 to Ports folder (https://github.com/impressivestay6355-cmyk/mcpelauncher-r36s)
+* added Yabasanshiro-Pirry Saturn emulator by u/PirryPirryPirry (https://github.com/pirrypirrypirry/yabasanshiro-pirry-release)
+
+  * bios and nobios versions
+* fixed Pico-8 fullscreen mode on 640x480 screens
+
+## Emulation & Performance
+
+* updated Duckstation build settings
+
+  * drastically improved performance
+  * hitting 60fps in some titles
+  * fixed conflict in Duckstation hotkeys, see Wiki
+* updated FlycastSA to version 2.7
+
+  * optimized settings
+  * switch to ALSA audio
+  * hitting 30fps in most titles
+  * fixed FlycastSA not saving settings
+* updated Dave's Retro Shaders to apply CRT shaders to PSX
+* fixed Retroarch32 can't write to config folder
+* fixed R36 Tuner Next launcher, removed unneeded (for dArkOSen) controller reference
+* added "BENCHMARKING" to the "PERFORMANCE SETTINGS" menu
+
+  * CPU, GPU, and RAM benchmarks
+  * tests current value set in "PERFORMANCE SETTINGS"
+  * GPU Benchmark reuses `glmark2-es2-drm-legacy` IN `/usr/local/bin` provided by R36 Tuner Next (credit to u/z3nmode-adri)
+  * CPU and RAM benchmarks use the same formula as R36 Tuner Next for consistent, comparable results (credit to u/z3nmode-adri)
+
+## Themes & EmulationStation
+
+* added "DATETIME" screensaver to "UI SETTINGS", analog or digital clock screensaver
+* added "ENABLE VIBRATION FEEDBACK" to the "ADVANCED SETTINGS" menu
+* added "TEMPERATURE" to "DISPLAY SETTINGS", default 5500K
+* added Batocera/Knulli/Pan4elec/AmberElec theme compatiblity
+
+  * ported for Art Book Next ES and Art Book Next Demake
+  * should support many other themes
+* added XMB fcamod theme (https://github.com/jovemlcxx/es-theme-xmb-fcamod)
+* added Art Book Next ES Demake theme (https://github.com/Kegg1701/P4ELEC/tree/main/art-book-next-es-demake)
+
+  * has been modified to work with dArkOSen
+* fixed "PERFORMANCE SETTINGS" and "NETWORK SETTINGS" now hide in kiosk/kids mode
+* fixed global ES keymap (JP) not working on scripts
+* updated scraper IDs for Ports - more games should scrape successfully
+
+  * added Xbox, PS4, Switch and Android categories
+  * Ports now search by name rather than ROM
+  * produces more results, possible to scrape wrong platform so double check after scanning
+* updated ES translations
+
+## Kernel, ZRAM & Networking
+
+* updated RTL8188EU wifi driver (thanks to u/OkDoubt2799)
+* added amux mapping to kernel (thanks u/Jason_2x!)
+* fixed ZRAM not respecting settings at boot
+* added ZRAM capacity checks to prevent OOM errors
+* fixed "WI-FI MONITOR", service detected as on when off
+* fixed "WI-FI MONITOR" service not running in background
+* added `USB Network Mode.sh` by @ctgl1987 to the System folder (thanks u/Warlord698)
+
+  * only works with select devices, the script will tell you
+  * needs setup-windows.bat or setup-linux.sh run on the PC to connect (not included)
+  * https://github.com/ctgl1987/arkos-usb-network-mode
+
+## DTB & Device Support
+
+* added R36s-V21 2024-12-18 2537 to the SELECTOR
+* fixed HL-R50S-V30 2025-12-18, should install now
+* fixed R36S-V12 2023-08-18 Panel 4 in the SELECTOR
+
+  * boot.ini was calling wrong dtb
+  * fixed access to SD2 (provided by u/chitalov)
+* screen rotation now auto-detects for devices like the R50H, flag file is gone
+* patched all dtbs in the SELECTOR with 60hz panel timing
+
+  * if my edits cause problems the old dtbs are in `/boot/dtb.7z`
+* added `60hz_display_timing_patcher.sh` for use on unpatched dtbs
+
+  * won't touch already patched files
+  * safe to test, creates backup dtb in boot
+  * may not work on all panels
+* added `fix-sd2-mount.sh` to the Advanced folder
+
+  * a patch tool for devices that won't boot/reboot with SD2 inserted
+  * may reduce overclocking stability
+
+## System Tools & Utilities
+
+* added `recordscreen` shell tool for capturing screen video
+
+  * type `recordscreen <duration> <location/filename>`, ie. `recordscreen 15`
+  * default location is /roms/screenshots
+* restored `SELECT MODEL.bat` and `SELECT MODEL OSX.sh` due to false virus detection in exe file
+* fixed keyboard in `351Files` missing icons on large screens
+* updated the Wiki: added Kiosk and Kids Mode, Storage Settings, and Performance Settings
+
+---
+
 # 09302026 Change Log
 
 ## Emulation
