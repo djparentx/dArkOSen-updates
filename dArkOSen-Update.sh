@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 clear
-UPDATE_DATE="10152026"
+UPDATE_DATE="10312026"
 LOG_FILE="/home/ark/dArkOSen-update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.dArkOSen-update$UPDATE_DATE"
 
@@ -268,6 +268,27 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update10152026" ]; then
 	else
 		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
 		rm -rf /home/ark/.update | tee -a "$LOG_FILE"
+		sleep 3
+		echo $c_brightness > /sys/class/backlight/backlight/brightness
+		exit 1
+	fi
+fi
+
+# 10312026
+if [ ! -f "/home/ark/.config/.dArkOSen-update10312026" ]; then
+	printf "\nInstalling update 10312026\n" >> "$LOG_FILE" 2>&1
+	sleep 2
+	rm -rf /dev/shm/*
+	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/10312026/dArkOSen-update10312026.zip -O /dev/shm/dArkOSen-update10312026.zip -a "$LOG_FILE" || rm -f /dev/shm/dArkOSen-update10312026.zip | tee -a "$LOG_FILE"
+	if [ -f "/dev/shm/dArkOSen-update10312026.zip" ]; then	
+		# unzip
+		unzip -X -o /dev/shm/dArkOSen-update10312026.zip -d / | tee -a "$LOG_FILE"
+		sleep 1
+		# run update script
+		bash /tmp/10312026.sh
+	else
+		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
+		rm -fv /dev/shm/dArkOSen-update10312026.z* | tee -a "$LOG_FILE"
 		sleep 3
 		echo $c_brightness > /sys/class/backlight/backlight/brightness
 		exit 1
