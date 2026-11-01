@@ -1,0 +1,1 @@
+sed -i '/<emulator name="drastic">/{N;N;N;s#^\([[:space:]]*\)<emulator name="drastic">\n[[:space:]]*<emulator name="dsperate">\n[[:space:]]*</emulator>\n[[:space:]]*</emulator>#\1<emulator name="drastic">\n\1</emulator>\n\1<emulator name="dsperate">\n\1</emulator>#;}' /etc/emulationstation/es_systems.cfg
