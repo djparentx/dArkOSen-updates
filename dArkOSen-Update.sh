@@ -303,7 +303,6 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update11112026" ]; then
 	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/11112026/dArkOSen-update11112026.zip.001 -O /home/ark/.update/dArkOSen-update11112026.zip.001 -a "$LOG_FILE" &&
 	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/11112026/dArkOSen-update11112026.zip.002 -O /home/ark/.update/dArkOSen-update11112026.zip.002 -a "$LOG_FILE"
 	if [ -s "/home/ark/.update/dArkOSen-update11112026.zip.001" ] && [ -s "/home/ark/.update/dArkOSen-update11112026.zip.002" ]; then
-		sudo systemctl unmask wifi_monitor.service 2>/dev/null
 		# join 7-Zip split parts
 		cat /home/ark/.update/dArkOSen-update11112026.zip.001 /home/ark/.update/dArkOSen-update11112026.zip.002 > /home/ark/.update/dArkOSen-update11112026.zip
 		# unzip
