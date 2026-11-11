@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 clear
-UPDATE_DATE="10312026"
+UPDATE_DATE="11112026"
 LOG_FILE="/home/ark/dArkOSen-update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.dArkOSen-update$UPDATE_DATE"
 
@@ -293,6 +293,31 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update10312026" ]; then
 		echo $c_brightness > /sys/class/backlight/backlight/brightness
 		exit 1
 	fi
+fi
+
+# 11112026
+if [ ! -f "/home/ark/.config/.dArkOSen-update11112026" ]; then
+	printf "\nInstalling update 11112026\n" >> "$LOG_FILE" 2>&1
+	sleep 2
+	mkdir -p /home/ark/.update
+	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/11112026/dArkOSen-update11112026.zip.001 -O /home/ark/.update/dArkOSen-update11112026.zip.001 -a "$LOG_FILE" &&
+	wget -t 3 -T 60 --no-check-certificate "$LOCATION"/11112026/dArkOSen-update11112026.zip.002 -O /home/ark/.update/dArkOSen-update11112026.zip.002 -a "$LOG_FILE"
+	if [ -s "/home/ark/.update/dArkOSen-update11112026.zip.001" ] && [ -s "/home/ark/.update/dArkOSen-update11112026.zip.002" ]; then
+		sudo systemctl unmask wifi_monitor.service 2>/dev/null
+		# join 7-Zip split parts
+		cat /home/ark/.update/dArkOSen-update11112026.zip.001 /home/ark/.update/dArkOSen-update11112026.zip.002 > /home/ark/.update/dArkOSen-update11112026.zip
+		# unzip
+		unzip -X -o /home/ark/.update/dArkOSen-update11112026.zip -d / | tee -a "$LOG_FILE"
+		sleep 1
+		# run update script
+		bash /tmp/11112026.sh
+	else
+		printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." >> "$LOG_FILE" 2>&1
+		rm -rf /home/ark/.update | tee -a "$LOG_FILE"
+		sleep 3
+		echo $c_brightness > /sys/class/backlight/backlight/brightness
+		exit 1
+	fi
 	
 	rm -v -- "$0" | tee -a "$LOG_FILE"
 	printf "\033c" >> /dev/tty1
@@ -300,5 +325,4 @@ if [ ! -f "/home/ark/.config/.dArkOSen-update10312026" ]; then
 	echo $c_brightness > /sys/class/backlight/backlight/brightness
 	reboot
 	exit 187
-
 fi
